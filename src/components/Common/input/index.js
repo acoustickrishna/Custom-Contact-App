@@ -19,12 +19,13 @@ const Input = ({ onChangeText, style, value, label, placeholder, icon, iconPosit
     }
 
     const getBorderColor = () => {
+        if (error) {
+            return color.danger
+        }
         if (focus) {
             return color.primary
         }
-        if (error) {
-            return color.danger
-        } else {
+        else {
             return color.grey;
         }
     }

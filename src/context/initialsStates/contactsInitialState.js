@@ -4,7 +4,7 @@ const contactsInitState = {
         error: null,
         loading: false
     },
-    creatContacts: {
+    createContacts: {
         data: {},
         error: null,
         loading: false

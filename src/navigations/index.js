@@ -11,7 +11,7 @@ export default function AppNavContainer() {
     const isLoggedin = true;
 
     const { authState: { isloggedin } } = useContext(GlobalContext)
-    console.log("state", isloggedin)
+   
     return (
         <NavigationContainer>
             {isloggedin ? <DrawerNavigator /> : <AuthNavigator />}

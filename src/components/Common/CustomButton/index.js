@@ -6,7 +6,7 @@ const CustomButton = ({
     title, secondary, primary, danger, loading, disabled, onPressed }) => {
 
     const [focus, setfocus] = useState(false)
-
+    
     const getBorderColor = () => {
         if (disabled) {
             return color.grey
@@ -37,8 +37,8 @@ const CustomButton = ({
             onPress={onPressed}
             style={[styles.wrapper, { backgroundColor: getBorderColor() }]}>
             <View style={[styles.loadingSection]}>
-                {loading && <ActivityIndicator style={{color:color.black}}/>}
-                {title && <Text style={{ color: getTextColor(),paddingLeft:loading?5:0 }}>{title}</Text>}
+                {loading && <ActivityIndicator style={{ color: color.secondary }} />}
+                {title && <Text style={{ color: getTextColor(), paddingLeft: loading ? 5 : 0 }}>{title}</Text>}
             </View>
 
         </TouchableOpacity>
