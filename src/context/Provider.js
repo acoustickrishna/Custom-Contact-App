@@ -1,21 +1,24 @@
-import React, { createContext, useReducer, UseReducer } from 'react';
-import authInitState from './initialsStates/authInitState';
-import contactsInitState from './initialsStates/contactsInitialState';
+import React, {createContext, useReducer} from 'react';
+import authInitialState from './initialsStates/authInitState';
+import contactsInitialState from './initialsStates/contactsInitialState';
 import auth from './reducers/auth';
 import contacts from './reducers/contacts';
 
-export const GlobalContext = createContext();
+export const GlobalContext = createContext({});
 
-const GlobalProvider = ({ children }) => {
-    const [authState, authDispatch] = useReducer(auth, authInitState)
-    const [contactsState, contactsDispatch] = useReducer(contacts, contactsInitState)
+const GlobalProvider = ({children}) => {
+  const [authState, authDispatch] = useReducer(auth, authInitialState);
+  const [contactsState, contactsDispatch] = useReducer(
+    contacts,
+    contactsInitialState,
+  );
 
-    return <GlobalContext.Provider value={{
-        authState, contactsInitState, authDispatch, contactsDispatch
-    }}>
-        {children}
+  return (
+    <GlobalContext.Provider
+      value={{authState, contactsState, authDispatch, contactsDispatch}}>
+      {children}
     </GlobalContext.Provider>
-}
-
+  );
+};
 
 export default GlobalProvider;

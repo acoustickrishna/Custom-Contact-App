@@ -1,56 +1,71 @@
-import React, { useState } from 'react'
-import { View, Text, TextInput } from 'react-native'
-import color from '../../../assets/theme/color'
-import styles from "./style"
-const Input = ({ onChangeText, style, value, label, placeholder, icon, iconPosition, error, ...props }) => {
+import React from 'react';
+import {View, Text, TextInput} from 'react-native';
+import colors from '../../../assets/theme/color';
 
-    const [focus, setfocus] = useState(false)
+import styles from './styles';
 
-    const getFlexDirection = () => {
+const Input = ({
+  onChangeText,
+  iconPosition,
+  icon,
+  style,
+  value,
+  label,
+  error,
+  ...props
+}) => {
+  const [focused, setFocused] = React.useState(false);
 
-        if (icon && iconPosition) {
-            if (iconPosition === "left") {
-                return "row"
-            }
-            else if (iconPosition === "right") {
-                return "row-reverse"
-            }
-        }
+  const getFlexDirection = () => {
+    if (icon && iconPosition) {
+      if (iconPosition === 'left') {
+        return 'row';
+      } else if (iconPosition === 'right') {
+        return 'row-reverse';
+      }
+    }
+  };
+
+  const getBorderColor = () => {
+    if (error) {
+      return colors.danger;
     }
 
-    const getBorderColor = () => {
-        if (error) {
-            return color.danger
-        }
-        if (focus) {
-            return color.primary
-        }
-        else {
-            return color.grey;
-        }
+    if (focused) {
+      return colors.primary;
+    } else {
+      return colors.grey;
     }
+  };
+  return (
+    <View style={styles.inputContainer}>
+      {label && <Text>{label}</Text>}
 
-    return (
-        <View style={styles.inputContainer}>
-            {label && <Text>{label}</Text>}
+      <View
+        style={[
+          styles.wrapper,
+          {alignItems: icon ? 'center' : 'baseline'},
+          {borderColor: getBorderColor(), flexDirection: getFlexDirection()},
+        ]}>
+        <View>{icon && icon}</View>
 
-            <View style={[styles.wrapper, { borderColor: getBorderColor(), flexDirection: getFlexDirection() }]}>
-                <View>
-                    {icon && icon}
-                </View>
-                <TextInput
-                    style={[styles.textInput, style]}
-                    onChangeText={onChangeText}
-                    value={value}
-                    placeholder={placeholder}
-                    onFocus={() => setfocus(true)}
-                    onBlur={() => setfocus(false)}
-                    {...props}
-                />
-            </View>
-            {error && <Text style={styles.error}>{error}</Text>}
-        </View>
-    )
-}
+        <TextInput
+          style={[styles.textInput, style]}
+          onChangeText={onChangeText}
+          value={value}
+          onFocus={() => {
+            setFocused(true);
+          }}
+          onBlur={() => {
+            setFocused(false);
+          }}
+          {...props}
+        />
+      </View>
 
-export default Input
+      {error && <Text style={styles.error}>{error}</Text>}
+    </View>
+  );
+};
+
+export default Input;
